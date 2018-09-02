@@ -1,0 +1,48 @@
+<div class="container">
+
+    <h2>{{getTitulo()}}</h2>
+
+    <form (ngSubmit)="onSubmit()" #cursoForm="ngForm">
+        <div class="form-group">
+            <label for="status" class="form-control-label">Empresa</label>
+            <br>
+        <select #selectElem (change)="setEmpresa(selectElem.value)">
+           <option *ngFor="let empresa of empresas" [value]="empresa.IdEmpresa" [selected]="curso.IdEmpresa == empresa.IdEmpresa">  <!--[selected]="curso.EmpresaId == x.id"> -->
+                {{empresa.NomeEmpresa}}
+            </option>
+        </select>
+        </div>
+
+        <div class="form-group" [ngClass]="getFormGroupClass(nome.valid, nome.pristine)">
+            <label for="Name" class="form-control-label">Nome do Curso</label>
+            <input type="text" placeholder="Insira o nome"
+            [ngClass]="getFormControlClass(nome.valid, nome.pristine)"
+            required
+            #nome="ngModel"
+            name="Name"
+            [(ngModel)]="curso.Name">
+            <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">Nome obrigatorio.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Qtd. Alunos</label>
+            <input type="number" class="form-control" placeholder="Quantidade alunos" 
+            required
+            name="Quantity"
+            [(ngModel)]="curso.Quantity">
+        </div>
+
+        <div class="form-group">
+            <label for="Description">Descricao</label>
+            <input type="text" class="form-control" placeholder="Insira uma descricao"
+            required 
+            name="Description"
+            [(ngModel)]="curso.Description">
+        </div>
+        
+        <button type="submit" class="btn btn-success" [disabled]="!cursoForm.form.valid">Salvar</button>
+        <a class="btn btn-secondary" (click)="goBack()">Voltar</a>
+
+    </form>
+
+</div>
